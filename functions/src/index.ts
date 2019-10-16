@@ -2,6 +2,8 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 
+
+// Update The index
 exports.updateIndex = functions.firestore.document('movies/{movieId}').onCreate(event => {
 
     const movieId = event.params.movieId;
@@ -14,6 +16,7 @@ exports.updateIndex = functions.firestore.document('movies/{movieId}').onCreate(
     return db.collection('movies').doc(movieId).set(indexedMovie , {merge : true})
 })
 
+// Create a new Index
 function createIndex(title){
     const arr = title.toLowerCase().split('');
     const searchableIndex = {};
